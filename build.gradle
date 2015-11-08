@@ -1,0 +1,59 @@
+buildscript {
+  repositories {
+    maven { url "https://repo.spring.io/libs-release" }
+    maven { url "http://repository.pentaho.org/artifactory/repo/" }
+    mavenLocal()
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+  }
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+  baseName = 'bitbucket-backup-tool'
+  version = '0.1.0'
+}
+
+task fatJar(type: Jar) {
+  manifest {
+    attributes 'Implementation-Title': 'bitbucket backup tool',  
+               'Implementation-Version': jar.version,
+               'Main-Class': 'io.github.spirin87.bitbucket_backup.Launcher'
+  }
+  baseName = jar.baseName + '-' + jar.version + ''
+  from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+  with jar
+}
+
+dependencies {
+  compile 'com.google.code.gson:gson:2.4'
+  compile 'org.eclipse.jgit:org.eclipse.jgit:4.1.0.201509280440-r'
+  compile 'org.apache.httpcomponents:httpclient:4.5.1'
+  compile 'log4j:log4j:1.2.17'
+  compile 'org.slf4j:slf4j-log4j12:1.7.12'
+}
+
+configurations {
+  providedRuntime
+}
+
+clean {
+  delete 'bin'
+  delete 'target'
+  delete '.settings'
+  delete '.project'
+  delete '.classpath'
+}
+
+tasks.eclipse.dependsOn(clean)

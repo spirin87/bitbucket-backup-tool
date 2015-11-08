@@ -1,0 +1,13 @@
+/bin
+/target
+/build
+.project
+.classpath
+/.settings
+/.gradle
+/.idea
+/.bpmn
+/bin/
+*.iml
+.DS_Store
+/repos*
