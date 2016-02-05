@@ -96,7 +96,10 @@ public class Worker {
                         repoFolder.mkdir();
                         try {
                             checkFolder(repoFolder);
-                            Git.cloneRepository().setURI("https://" + user + "@bitbucket.org/" + repoPath + ".git")
+                            // fix due to changes of api returns
+                            String uri = ("https://" + user + "@bitbucket.org/" + repoPath + ".git")
+                                    .replaceAll("/.git", ".git").replaceAll("//", "/");
+                            Git.cloneRepository().setURI(uri)
                                     .setCredentialsProvider(new UsernamePasswordCredentialsProvider(user, password))
                                     .setDirectory(repoFolder).call();
                         } catch (Exception e) {

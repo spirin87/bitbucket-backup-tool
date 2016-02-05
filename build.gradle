@@ -22,7 +22,7 @@ apply plugin: 'spring-boot'
 
 jar {
   baseName = 'bitbucket-backup-tool'
-  version = '0.1.0'
+  version = '0.1.1'
 }
 
 task fatJar(type: Jar) {
@@ -38,7 +38,7 @@ task fatJar(type: Jar) {
 
 dependencies {
   compile 'com.google.code.gson:gson:2.4'
-  compile 'org.eclipse.jgit:org.eclipse.jgit:4.1.0.201509280440-r'
+  compile 'org.eclipse.jgit:org.eclipse.jgit:4.2.0.201601211800-r'
   compile 'org.apache.httpcomponents:httpclient:4.5.1'
   compile 'log4j:log4j:1.2.17'
   compile 'org.slf4j:slf4j-log4j12:1.7.12'
